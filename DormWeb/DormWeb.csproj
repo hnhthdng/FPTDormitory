@@ -22,4 +22,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DormDataAccess\DormDataAccess.csproj" />
+    <ProjectReference Include="..\DormModel\DormModel.csproj" />
+    <ProjectReference Include="..\DormUtility\DormUtility.csproj" />
+  </ItemGroup>
+
 </Project>

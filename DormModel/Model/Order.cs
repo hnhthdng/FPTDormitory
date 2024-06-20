@@ -14,7 +14,7 @@
         public AppUser User { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
-        public virtual Transaction Transaction { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual ICollection<OrderSideService> OrderSideServices { get; set; }
     }
 }
