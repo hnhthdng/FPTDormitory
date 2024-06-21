@@ -11,10 +11,6 @@ namespace DormDataAccess.EntityConfiguration
                 // Table name
                 builder.ToTable("AppUsers");
 
-                // Configure one-to-one relationship with Balance
-                builder.HasOne(e => e.Balance)
-                      .WithOne(b => b.User)
-                      .HasForeignKey<Balance>(b => b.UserId);
 
                 // Configure one-to-many relationship with Orders
                 builder.HasMany(e => e.Orders)

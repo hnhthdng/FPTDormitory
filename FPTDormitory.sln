@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormWeb", "DormWeb\DormWeb.csproj", "{8BC37827-6AC9-46C8-A09B-1ABE0597B63B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormDataAccess", "DormDataAccess\DormDataAccess.csproj", "{99F06E28-8EE8-463F-868E-16BA59EB6457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormDataAccess", "DormDataAccess\DormDataAccess.csproj", "{99F06E28-8EE8-463F-868E-16BA59EB6457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormModel", "DormModel\DormModel.csproj", "{190F9750-B083-48CC-AFFD-D61619AB8892}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormModel", "DormModel\DormModel.csproj", "{190F9750-B083-48CC-AFFD-D61619AB8892}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DormUtility", "DormUtility\DormUtility.csproj", "{E933BB95-EAE2-4FB4-91B8-7E550EA5A5DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormUtility", "DormUtility\DormUtility.csproj", "{E933BB95-EAE2-4FB4-91B8-7E550EA5A5DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DormAPI", "DormAPI\DormAPI.csproj", "{FC20115A-8636-47AC-B0F3-891A19B2F85D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8BC37827-6AC9-46C8-A09B-1ABE0597B63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BC37827-6AC9-46C8-A09B-1ABE0597B63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BC37827-6AC9-46C8-A09B-1ABE0597B63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BC37827-6AC9-46C8-A09B-1ABE0597B63B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99F06E28-8EE8-463F-868E-16BA59EB6457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{99F06E28-8EE8-463F-868E-16BA59EB6457}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F06E28-8EE8-463F-868E-16BA59EB6457}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{E933BB95-EAE2-4FB4-91B8-7E550EA5A5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E933BB95-EAE2-4FB4-91B8-7E550EA5A5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E933BB95-EAE2-4FB4-91B8-7E550EA5A5DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC20115A-8636-47AC-B0F3-891A19B2F85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC20115A-8636-47AC-B0F3-891A19B2F85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC20115A-8636-47AC-B0F3-891A19B2F85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC20115A-8636-47AC-B0F3-891A19B2F85D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

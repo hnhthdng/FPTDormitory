@@ -14,7 +14,7 @@ namespace DormDataAccess.EntityConfiguration
         public void Configure(EntityTypeBuilder<Floor> builder)
         {
             builder.HasKey(f => f.Id);
-            //builder.Property(b => b.Id).UseIdentityColumn();
+            builder.Property(b => b.Id).UseIdentityColumn();
 
             builder.Property(f => f.Name).IsRequired().HasMaxLength(100);
 

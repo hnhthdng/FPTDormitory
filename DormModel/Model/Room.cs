@@ -2,7 +2,7 @@
 {
     public class Room
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int MaximumNumberOfPeople { get; set; }
         public int CurrentNumberOfPeople { get; set; }

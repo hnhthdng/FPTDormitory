@@ -2,10 +2,10 @@
 {
     public class Invoice
     {
-        public Guid Id { get; set; }
-        public Guid TransactionId { get; set; }
-        public Guid UserId { get; set; }
-        public Guid PaymentId { get; set; }
+        public int Id { get; set; }
+        public int TransactionId { get; set; }
+        public string UserId { get; set; }
+        public int PaymentId { get; set; }
         public string UserFullName { get; set; }
         public string TotalPrice { get; set; }
         public string Description { get; set; }

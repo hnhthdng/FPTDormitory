@@ -2,9 +2,9 @@
 
 namespace DormModel.Model
 {
-    public class AppUser : IdentityUser<Guid>
+    public class AppUser : IdentityUser
     {
-        public Guid? RoomId { get; set; }
+        public int? RoomId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Gender { get; set; }
@@ -12,10 +12,9 @@ namespace DormModel.Model
         public string? Address { get; set; }
         public string? Description { get; set; }
         public string? Picture { get; set; }
+        public decimal Balance { get; set; }
 
-        public virtual Balance Balance { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual Transaction Transaction { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Room Room { get; set; }
     }

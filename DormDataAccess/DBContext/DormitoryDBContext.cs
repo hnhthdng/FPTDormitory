@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DormDataAccess.DBContext
 {
-    public class DormitoryDBContext : IdentityDbContext
+    public class DormitoryDBContext : IdentityDbContext<AppUser>
     {
         public DormitoryDBContext(DbContextOptions<DormitoryDBContext> options)
         : base(options)
@@ -48,7 +48,6 @@ namespace DormDataAccess.DBContext
             }
 
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
-            modelBuilder.ApplyConfiguration(new BalanceConfiguration());
             modelBuilder.ApplyConfiguration(new DormConfiguration());
             modelBuilder.ApplyConfiguration(new DormFloorConfiguration());
             modelBuilder.ApplyConfiguration(new FloorConfiguration());

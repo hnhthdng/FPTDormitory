@@ -15,7 +15,7 @@ namespace DormDataAccess.EntityConfiguration
         {
             // Primary key
             builder.HasKey(ss => ss.Id);
-            //builder.Property(b => b.Id).UseIdentityColumn();
+            builder.Property(b => b.Id).UseIdentityColumn();
 
             // Properties
             builder.Property(ss => ss.Name)

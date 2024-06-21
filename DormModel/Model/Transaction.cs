@@ -2,9 +2,9 @@
 {
     public class Transaction
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public Guid PaymentId { get; set; }
+        public int Id { get; set; }
+        public int OrderId { get; set; }
+        public int PaymentId { get; set; }
         public string? Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
