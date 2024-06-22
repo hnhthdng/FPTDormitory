@@ -11,6 +11,8 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 using DormUtility.AutoMapper;
+using DormDataAccess.Service.IServices;
+using DormDataAccess.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +77,7 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

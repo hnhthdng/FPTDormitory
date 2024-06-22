@@ -1,4 +1,4 @@
-﻿using DormDataAccess.EntityConfiguration;
+﻿using DormDataAccess.DBContext.EntityConfiguration;
 using DormModel.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

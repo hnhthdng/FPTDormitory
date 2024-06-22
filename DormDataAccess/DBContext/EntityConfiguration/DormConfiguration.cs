@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DormDataAccess.EntityConfiguration
+namespace DormDataAccess.DBContext.EntityConfiguration
 {
     public class DormConfiguration : IEntityTypeConfiguration<Dorm>
     {

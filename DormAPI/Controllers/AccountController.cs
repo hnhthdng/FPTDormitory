@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DormDataAccess.Service.IServices;
 using DormModel.DTO.Account;
 using DormModel.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,15 +18,14 @@ namespace DormAPI.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-            RoleManager<IdentityRole> roleManager, IMapper mapper)
+        private readonly IUserService _userService;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
             _mapper = mapper;
+            _userService = userService;
         }
         
 
@@ -37,9 +37,7 @@ namespace DormAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var claims = User.Claims;
-            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            var user = await _userService.GetUserInCookieAsync(User);
             if (user == null)
             {
                 return Unauthorized();
@@ -62,9 +60,7 @@ namespace DormAPI.Controllers
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            var claims = User.Claims;
-            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            var user = await _userService.GetUserInCookieAsync(User);
             // Sử dụng AutoMapper để map từ User sang ProfileRequestDTO
             var userDto = _mapper.Map<ProfileResposeDTO>(user);
             if (userDto == null)
@@ -78,9 +74,7 @@ namespace DormAPI.Controllers
         [HttpPost("profile")]
         public async Task<IActionResult> UpdateProfile(ProfileRequestDTO requestModel)
         {
-            var claims = User.Claims;
-            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            var user = await _userService.GetUserInCookieAsync(User);
             _mapper.Map(requestModel, user);
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)

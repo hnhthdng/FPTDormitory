@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DormModel.Model;
 
-namespace DormDataAccess.EntityConfiguration
+namespace DormDataAccess.DBContext.EntityConfiguration
 {
     public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
     {
