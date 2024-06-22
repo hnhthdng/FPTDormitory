@@ -169,35 +169,5 @@ namespace DormAPI.Controllers
             return Ok("Password has been changed");
         }
 
-        [HttpPost("change-password")]
-        [Authorize(Roles = "Admin,User")] // Allow both Admin and User roles
-        public async Task<IActionResult> ChangePassword( [FromBody] ChangePasswordRequestDTO model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var claims = User.Claims;
-            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var user = await _signInManager.UserManager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                await _signInManager.RefreshSignInAsync(user);
-                return Ok(new { Message = "Password changed successfully" });
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-            return BadRequest(ModelState);
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using DormModel.Model;
+﻿using AutoMapper;
+using DormModel.DTO.Account;
+using DormModel.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,30 +12,87 @@ namespace DormAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    [Authorize(Roles ="Admin,User")]
+    public class AccountController : ControllerBase
     {
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-
-        public AdminController(UserManager<AppUser> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IMapper _mapper;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+            RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _mapper = mapper;
         }
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult Get()
-        {
-            return Ok("This is an admin-only endpoint.");
-        }
+        
 
-        [HttpGet("getuser")]
-        public async Task<IActionResult> GetUser()
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequestDTO model)
         {
-            var user = await _userManager.GetUserAsync(User);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var claims = User.Claims;
             var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var roles = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-            return Ok(user);
+            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+                return Ok(new { Message = "Password changed successfully" });
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return BadRequest(ModelState);
         }
 
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var claims = User.Claims;
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            // Sử dụng AutoMapper để map từ User sang ProfileRequestDTO
+            var userDto = _mapper.Map<ProfileResposeDTO>(user);
+            if (userDto == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(userDto);
+
+        }
+
+        [HttpPost("profile")]
+        public async Task<IActionResult> UpdateProfile(ProfileRequestDTO requestModel)
+        {
+            var claims = User.Claims;
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            _mapper.Map(requestModel, user);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok("Update Success");
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }

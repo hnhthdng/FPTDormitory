@@ -18,7 +18,6 @@ namespace DormDataAccess.DBContext
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<Balance> Balances { get; set; }
         public DbSet<Dorm> Dorms { get; set; }
         public DbSet<DormFloor> DormFloors { get; set; }
         public DbSet<Floor> Floors { get; set; }

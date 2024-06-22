@@ -7,6 +7,10 @@ using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using System.Net;
 using DormUtility.Email;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+
+using DormUtility.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +72,10 @@ builder.Services.AddAuthorization(options =>
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 builder.Services.AddSingleton(emailConfig);
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
+
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
