@@ -12,6 +12,7 @@ namespace DormDataAccess.DBContext
 {
     public class DormitoryDBContext : IdentityDbContext<AppUser>
     {
+
         public DormitoryDBContext(DbContextOptions<DormitoryDBContext> options)
         : base(options)
         {

@@ -1,3 +1,4 @@
+﻿
 ﻿using AutoMapper;
 using DormDataAccess.Service.IServices;
 using DormModel.DTO.Account;
@@ -13,7 +14,7 @@ namespace DormAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin,User")]
+    [Authorize(Roles = "Admin,User")]
     public class AccountController : ControllerBase
     {
         private readonly SignInManager<AppUser> _signInManager;
@@ -27,7 +28,7 @@ namespace DormAPI.Controllers
             _mapper = mapper;
             _userService = userService;
         }
-        
+
 
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequestDTO model)

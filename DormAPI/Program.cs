@@ -13,12 +13,16 @@ using Microsoft.Extensions.DependencyInjection;
 using DormUtility.AutoMapper;
 using DormDataAccess.Service.IServices;
 using DormDataAccess.Services;
+using DormDataAccess.Services.IService;
+using DormDataAccess.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 // Congfig DbContext
 builder.Services.AddDbContext<DormitoryDBContext>(options =>
@@ -78,6 +82,9 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<DormDAO>();
+builder.Services.AddScoped<IDormService, DormService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
