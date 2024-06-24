@@ -72,6 +72,8 @@ namespace DormAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequestDTO model)
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: true, lockoutOnFailure: false);
 
             if (result.Succeeded)

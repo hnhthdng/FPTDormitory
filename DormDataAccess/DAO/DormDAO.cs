@@ -25,7 +25,7 @@ namespace DormDataAccess.DAO
 
         public async Task<Dorm> GetByNameAsync(string name)
         {
-            return await _context.Dorms.Include(d => d.DormFloors).FirstOrDefaultAsync(d => d.Name == name);
+            return await _context.Dorms.Include(d => d.DormFloors).FirstOrDefaultAsync(d => d.Name.ToLower() == name.ToLower());
         }
         public async Task<Dorm> GetByIdAsync(int id)
         {
@@ -34,7 +34,7 @@ namespace DormDataAccess.DAO
 
         public async Task AddAsync(Dorm dorm)
         {
-            var isExistDorm = GetByNameAsync(dorm.Name);
+            var isExistDorm =  await GetByNameAsync(dorm.Name);
             if(isExistDorm == null)
             {
                 _context.Dorms.Add(dorm);
@@ -48,16 +48,8 @@ namespace DormDataAccess.DAO
 
         public async Task UpdateAsync(Dorm dorm)
         {
-            var isExistDorm = GetByIdAsync(dorm.Id);
-            if(isExistDorm != null)
-            {
-                _context.Dorms.Update(dorm);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Dorm is not exist");
-            }
+            _context.Dorms.Update(dorm);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
