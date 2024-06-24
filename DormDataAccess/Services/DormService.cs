@@ -1,6 +1,7 @@
 ﻿using DormDataAccess.DAO;
 using DormDataAccess.DBContext;
 using DormDataAccess.Services.IService;
+using DormModel.DTO.Dorm;
 using DormModel.Model;
 using Microsoft.EntityFrameworkCore;
 using System;

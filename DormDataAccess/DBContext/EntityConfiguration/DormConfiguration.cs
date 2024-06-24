@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,23 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                 .HasMaxLength(100);
 
             // Configure relationships
-            builder.HasMany(d => d.DormFloors)
-                .WithOne(df => df.Dorm)
-                .HasForeignKey(df => df.DormId);
+           
+            builder.HasMany(d => d.Floors)
+            .WithMany(f => f.Dorms)
+            .UsingEntity<DormFloor>(
+                j => j
+                    .HasOne(df => df.Floor)
+                    .WithMany(f => f.DormFloors)
+                    .HasForeignKey(df => df.FloorId),
+                j => j
+                    .HasOne(df => df.Dorm)
+                    .WithMany(d => d.DormFloors)
+                    .HasForeignKey(df => df.DormId),
+                j =>
+                {
+                    j.HasKey(t => new { t.DormId, t.FloorId });
+                }
+            );
         }
     }
 }

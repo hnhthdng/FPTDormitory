@@ -1,4 +1,5 @@
 ﻿using DormDataAccess.DBContext;
+using DormModel.DTO.Dorm;
 using DormModel.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,16 +21,19 @@ namespace DormDataAccess.DAO
 
         public async Task<List<Dorm>> GetAllAsync()
         {
-            return await _context.Dorms.Include(d => d.DormFloors).ToListAsync();
+            return await _context.Dorms
+            .ToListAsync();
+
         }
 
         public async Task<Dorm> GetByNameAsync(string name)
         {
-            return await _context.Dorms.Include(d => d.DormFloors).FirstOrDefaultAsync(d => d.Name.ToLower() == name.ToLower());
+            return await _context.Dorms.FirstOrDefaultAsync(d => d.Name.ToLower() == name.ToLower());
         }
         public async Task<Dorm> GetByIdAsync(int id)
         {
-            return await _context.Dorms.Include(d => d.DormFloors).FirstOrDefaultAsync(d => d.Id == id);
+
+            return await _context.Dorms.FirstOrDefaultAsync(d => d.Id == id);
         }
 
         public async Task AddAsync(Dorm dorm)
@@ -65,6 +69,7 @@ namespace DormDataAccess.DAO
                 throw new Exception("Error for delete");
             }
         }
+
     }
 
 }

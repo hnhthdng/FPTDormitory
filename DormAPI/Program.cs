@@ -85,6 +85,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<DormDAO>();
 builder.Services.AddScoped<IDormService, DormService>();
+builder.Services.AddScoped<FloorDAO>();
+builder.Services.AddScoped<IFloorService, FloorService>();
+
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

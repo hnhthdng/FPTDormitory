@@ -4,6 +4,7 @@ using DormDataAccess.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DormDataAccess.Migrations
 {
     [DbContext(typeof(DormitoryDBContext))]
-    partial class DormitoryDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240624054301_configfloor")]
+    partial class configfloor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,23 +234,6 @@ namespace DormDataAccess.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("FloorRooms");
-
-                    b.HasData(
-                        new
-                        {
-                            FloorId = 1,
-                            RoomId = 1
-                        },
-                        new
-                        {
-                            FloorId = 1,
-                            RoomId = 2
-                        },
-                        new
-                        {
-                            FloorId = 2,
-                            RoomId = 1
-                        });
                 });
 
             modelBuilder.Entity("DormModel.Model.Invoice", b =>
@@ -442,24 +428,6 @@ namespace DormDataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CurrentNumberOfPeople = 2,
-                            IsMaximum = false,
-                            MaximumNumberOfPeople = 4,
-                            Name = "Room 101"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CurrentNumberOfPeople = 2,
-                            IsMaximum = true,
-                            MaximumNumberOfPeople = 2,
-                            Name = "Room 102"
-                        });
                 });
 
             modelBuilder.Entity("DormModel.Model.SideService", b =>

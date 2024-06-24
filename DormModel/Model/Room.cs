@@ -10,5 +10,6 @@
 
         public virtual ICollection<FloorRoom> FloorRooms { get; set; }
         public virtual ICollection<AppUser> AppUsers { get; set; }
+        public virtual ICollection<Floor> Floors { get; set; }
     }
 }

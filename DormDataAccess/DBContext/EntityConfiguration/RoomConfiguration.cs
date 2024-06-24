@@ -28,6 +28,22 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                 .HasForeignKey(fr => fr.RoomId)
                 .OnDelete(DeleteBehavior.Cascade); // Cascade deletes if necessary
 
+            builder.HasMany(r => r.Floors)
+            .WithMany(f => f.Rooms)
+            .UsingEntity<FloorRoom>(
+                j => j
+                    .HasOne(fr => fr.Floor)
+                    .WithMany(f => f.FloorRooms)
+                    .HasForeignKey(fr => fr.FloorId),
+                j => j
+                    .HasOne(fr => fr.Room)
+                    .WithMany(r => r.FloorRooms)
+                    .HasForeignKey(fr => fr.RoomId),
+                j =>
+                {
+                    j.HasKey(t => new { t.FloorId, t.RoomId });
+                }
+            );
         }
     }
 }

@@ -25,6 +25,41 @@ namespace DormDataAccess.DBContext.EntityConfiguration
             builder.HasMany(f => f.FloorRooms)
                 .WithOne(fr => fr.Floor)
                 .HasForeignKey(fr => fr.FloorId);
+
+            // Optionally configure the relationship with Dorm if needed
+            builder.HasMany(f => f.Dorms)
+                .WithMany(d => d.Floors)
+                .UsingEntity<DormFloor>(
+                    j => j
+                        .HasOne(df => df.Dorm)
+                        .WithMany(d => d.DormFloors)
+                        .HasForeignKey(df => df.DormId),
+                    j => j
+                        .HasOne(df => df.Floor)
+                        .WithMany(f => f.DormFloors)
+                        .HasForeignKey(df => df.FloorId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.DormId, t.FloorId });
+                    }
+                );
+
+            builder.HasMany(f => f.Rooms)
+            .WithMany(r => r.Floors)
+            .UsingEntity<FloorRoom>(
+                j => j
+                    .HasOne(fr => fr.Room)
+                    .WithMany(r => r.FloorRooms)
+                    .HasForeignKey(fr => fr.RoomId),
+                j => j
+                    .HasOne(fr => fr.Floor)
+                    .WithMany(f => f.FloorRooms)
+                    .HasForeignKey(fr => fr.FloorId),
+                j =>
+                {
+                    j.HasKey(t => new { t.FloorId, t.RoomId });
+                }
+            );
         }
     }
 }

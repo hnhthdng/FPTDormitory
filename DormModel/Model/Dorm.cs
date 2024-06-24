@@ -7,5 +7,6 @@
 
         //  Navigation properties
         public virtual ICollection<DormFloor> DormFloors { get; set; }
+        public virtual ICollection<Floor> Floors { get; set; }
     }
 }

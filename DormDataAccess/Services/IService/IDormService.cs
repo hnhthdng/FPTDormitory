@@ -1,4 +1,5 @@
-﻿using DormModel.Model;
+﻿using DormModel.DTO.Dorm;
+using DormModel.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

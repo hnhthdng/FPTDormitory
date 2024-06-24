@@ -62,6 +62,36 @@ namespace DormDataAccess.DBContext
             modelBuilder.ApplyConfiguration(new SideServiceConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
+
+            // Optionally, seed data
+            modelBuilder.Entity<Dorm>().HasData(
+                new Dorm { Id = 1, Name = "Dorm A" },
+                new Dorm { Id = 2, Name = "Dorm B" }
+            );
+
+            modelBuilder.Entity<Floor>().HasData(
+                new Floor { Id = 1, Name = "Floor 1" },
+                new Floor { Id = 2, Name = "Floor 2" },
+                new Floor { Id = 3, Name = "Floor 3" }
+            );
+
+            modelBuilder.Entity<Room>().HasData(
+                new Room { Id = 1, Name = "Room 101", MaximumNumberOfPeople = 4, CurrentNumberOfPeople = 2, IsMaximum = false },
+                new Room { Id = 2, Name = "Room 102", MaximumNumberOfPeople = 2, CurrentNumberOfPeople = 2, IsMaximum = true }
+            );
+
+            modelBuilder.Entity<DormFloor>().HasData(
+                new DormFloor { DormId = 1, FloorId = 1 },
+                new DormFloor { DormId = 1, FloorId = 2 },
+                new DormFloor { DormId = 2, FloorId = 2 },
+                new DormFloor { DormId = 2, FloorId = 3 }
+            );
+
+            modelBuilder.Entity<FloorRoom>().HasData(
+                new FloorRoom { FloorId = 1, RoomId = 1 },
+                new FloorRoom { FloorId = 1, RoomId = 2 },
+                new FloorRoom { FloorId = 2, RoomId = 1 }
+            );
         }
     }
 }
