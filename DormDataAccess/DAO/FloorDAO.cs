@@ -19,13 +19,24 @@ namespace DormDataAccess.DAO
             _context = context;
         }
 
-        public async Task AddAsync(Floor floor)
+        public async Task AddFloorToDormAsync(int dormId, Floor newFloor)
         {
-            var isExistFloor = await GetByIdAsync(floor.Id);
+            var isExistFloor = await GetByIdAsync(newFloor.Id);
             if (isExistFloor == null)
             {
-                _context.Floors.Add(floor);
+                _context.Floors.Add(newFloor);
                 await _context.SaveChangesAsync();
+
+                // Create a new DormFloor entry to associate the new floor with the specified dormitory
+                var dormFloor = new DormFloor
+                {
+                    DormId = dormId,
+                    FloorId = newFloor.Id
+                };
+
+                _context.DormFloors.Add(dormFloor);
+                await _context.SaveChangesAsync();
+
             }
             else
             {
@@ -80,6 +91,6 @@ namespace DormDataAccess.DAO
         {
             _context.Floors.Update(floor);
             await _context.SaveChangesAsync();
-        }
+        }   
     }
 }

@@ -87,6 +87,9 @@ builder.Services.AddScoped<DormDAO>();
 builder.Services.AddScoped<IDormService, DormService>();
 builder.Services.AddScoped<FloorDAO>();
 builder.Services.AddScoped<IFloorService, FloorService>();
+builder.Services.AddScoped<RoomDAO>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+
 
 
 

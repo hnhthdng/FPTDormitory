@@ -14,7 +14,7 @@ namespace DormDataAccess.Services.IService
         Task<Floor> GetByNameAsync(string name);
         Task<Floor> GetByIdAsync(int id);
         Task<List<Floor>> GetByDormId(int dormId);
-        Task AddAsync(Floor floor);
+        Task AddFloorToDormAsync(int dormId, Floor newFloor);
         Task UpdateAsync(Floor floor);
         Task DeleteAsync(int id);
     }

@@ -19,7 +19,7 @@ namespace DormDataAccess.Services
         {
             _floorDAO = floorDAO;
         }
-        public Task AddAsync(Floor floor) => _floorDAO.AddAsync(floor);
+        public Task AddFloorToDormAsync(int dormId, Floor newFloor) => _floorDAO.AddFloorToDormAsync(dormId, newFloor);
 
         public Task DeleteAsync(int id) => _floorDAO.DeleteAsync(id);
 

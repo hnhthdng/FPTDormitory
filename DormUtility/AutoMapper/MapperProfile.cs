@@ -2,6 +2,7 @@
 using DormModel.DTO.Account;
 using DormModel.DTO.Dorm;
 using DormModel.DTO.Floor;
+using DormModel.DTO.Room;
 using DormModel.Model;
 
 namespace DormUtility.AutoMapper
@@ -14,6 +15,9 @@ namespace DormUtility.AutoMapper
             CreateMap<ProfileRequestDTO, AppUser>();
             CreateMap<DormRequestDTO, Dorm>();
             CreateMap<Floor, FloorResponseDTO>();
+            CreateMap<Room, RoomResponseDTO>();
+            CreateMap<RoomRequestDTO, Room>();
+
 
         }
     }

@@ -66,8 +66,8 @@ namespace DormAPI.Controllers
         }
 
 
-        [HttpPost("add-floor")]
-        public async Task<IActionResult> AddFloor(string name)
+        [HttpPost("add-floor-by-dormId")]
+        public async Task<IActionResult> AddFloor(int dormId, string name)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace DormAPI.Controllers
                 {
                     Name = name,
                 };
-                await _floorService.AddAsync(floor);
+                await _floorService.AddFloorToDormAsync(dormId, floor);
                 return StatusCode(200, "Add success");
             }
             return StatusCode(500, "Add failed");
