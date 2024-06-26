@@ -4,6 +4,7 @@ using DormDataAccess.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DormDataAccess.Migrations
 {
     [DbContext(typeof(DormitoryDBContext))]
-    partial class DormitoryDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240626054115_changeDB")]
+    partial class changeDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,9 +403,6 @@ namespace DormDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
@@ -414,8 +414,7 @@ namespace DormDataAccess.Migrations
                             CurrentNumberOfPeople = 2,
                             IsMaximum = false,
                             MaximumNumberOfPeople = 4,
-                            Name = "Room 101",
-                            Price = 700000m
+                            Name = "Room 101"
                         },
                         new
                         {
@@ -423,8 +422,7 @@ namespace DormDataAccess.Migrations
                             CurrentNumberOfPeople = 2,
                             IsMaximum = true,
                             MaximumNumberOfPeople = 2,
-                            Name = "Room 102",
-                            Price = 900000m
+                            Name = "Room 102"
                         });
                 });
 
@@ -461,28 +459,12 @@ namespace DormDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SideServices");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Nothing",
-                            Name = "Laundry",
-                            Price = 100000m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Nothing",
-                            Name = "Fixing",
-                            Price = 50000m
-                        });
+                    b.ToTable("SideService");
                 });
 
             modelBuilder.Entity("DormModel.Model.Transaction", b =>

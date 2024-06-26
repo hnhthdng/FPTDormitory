@@ -44,6 +44,23 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                     j.HasKey(t => new { t.FloorId, t.RoomId });
                 }
             );
+
+            builder.HasMany(d => d.Orders)
+            .WithMany(f => f.Rooms)
+            .UsingEntity<RoomOrder>(
+                j => j
+                    .HasOne(df => df.Order)
+                    .WithMany(f => f.RoomOrders)
+                    .HasForeignKey(df => df.OrderId),
+                j => j
+                    .HasOne(df => df.Room)
+                    .WithMany(d => d.RoomOrders)
+                    .HasForeignKey(df => df.RoomId),
+                j =>
+                {
+                    j.HasKey(t => new { t.OrderId, t.RoomId });
+                }
+            );
         }
     }
 }

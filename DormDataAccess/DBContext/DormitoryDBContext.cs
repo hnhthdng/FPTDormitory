@@ -24,10 +24,10 @@ namespace DormDataAccess.DBContext
         public DbSet<Floor> Floors { get; set; }
         public DbSet<FloorRoom> FloorRooms { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<RoomOrder> RoomOrders { get; set; }
         public DbSet<OrderSideService> OrderSideServices { get; set; }
+        public DbSet<SideService> SideServices { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
@@ -53,15 +53,13 @@ namespace DormDataAccess.DBContext
             modelBuilder.ApplyConfiguration(new FloorConfiguration());
             modelBuilder.ApplyConfiguration(new FloorRoomConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceConfiguration());
-            modelBuilder.ApplyConfiguration(new ItemConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new OrderSideServiceConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new SideServiceConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
-
+            modelBuilder.ApplyConfiguration(new RoomOrderConfiguration());
 
             // Optionally, seed data
             modelBuilder.Entity<Dorm>().HasData(
@@ -76,8 +74,13 @@ namespace DormDataAccess.DBContext
             );
 
             modelBuilder.Entity<Room>().HasData(
-                new Room { Id = 1, Name = "Room 101", MaximumNumberOfPeople = 4, CurrentNumberOfPeople = 2, IsMaximum = false },
-                new Room { Id = 2, Name = "Room 102", MaximumNumberOfPeople = 2, CurrentNumberOfPeople = 2, IsMaximum = true }
+                new Room { Id = 1, Name = "Room 101", MaximumNumberOfPeople = 4, CurrentNumberOfPeople = 2, IsMaximum = false, Price = 700000 },
+                new Room { Id = 2, Name = "Room 102", MaximumNumberOfPeople = 2, CurrentNumberOfPeople = 2, IsMaximum = true, Price = 900000 }
+            );
+
+            modelBuilder.Entity<SideService>().HasData(
+                new SideService { Id = 1, Name = "Laundry", Description = "Nothing", Price = 100000 },
+                new SideService { Id = 2, Name = "Fixing", Description = "Nothing", Price = 50000 }
             );
 
             modelBuilder.Entity<DormFloor>().HasData(

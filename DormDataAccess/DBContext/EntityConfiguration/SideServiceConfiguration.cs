@@ -30,6 +30,23 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                 .WithOne(oss => oss.SideService)
                 .HasForeignKey(oss => oss.SideServiceId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes if necessary
+
+            builder.HasMany(f => f.Orders)
+                .WithMany(d => d.SideServices)
+                .UsingEntity<OrderSideService>(
+                    j => j
+                        .HasOne(df => df.Order)
+                        .WithMany(d => d.OrderSideServices)
+                        .HasForeignKey(df => df.OrderId),
+                    j => j
+                        .HasOne(df => df.SideService)
+                        .WithMany(f => f.OrderSideServices)
+                        .HasForeignKey(df => df.SideServiceId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.OrderId, t.SideServiceId });
+                    }
+                );
         }
     }
 }

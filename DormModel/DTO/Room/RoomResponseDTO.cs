@@ -13,6 +13,7 @@ namespace DormModel.DTO.Room
         public int MaximumNumberOfPeople { get; set; }
         public int CurrentNumberOfPeople { get; set; }
         public bool IsMaximum { get; set; }
+        public decimal Price { get; set; }
 
     }
 }

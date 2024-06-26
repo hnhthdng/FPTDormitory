@@ -31,11 +31,6 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascading deletes
 
-            builder.HasMany(o => o.OrderItems)
-                .WithOne(oi => oi.Order)
-                .HasForeignKey(oi => oi.OrderId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade deletes for OrderItem if necessary
-
             builder.HasMany(o => o.Transactions)
                 .WithOne(t => t.Order)
                 .HasForeignKey(t => t.OrderId)
@@ -45,6 +40,40 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                 .WithOne(oss => oss.Order)
                 .HasForeignKey(oss => oss.OrderId)
                 .OnDelete(DeleteBehavior.Cascade); // Cascade deletes for OrderSideService if necessary
+
+            builder.HasMany(d => d.SideServices)
+            .WithMany(f => f.Orders)
+            .UsingEntity<OrderSideService>(
+                j => j
+                    .HasOne(df => df.SideService)
+                    .WithMany(f => f.OrderSideServices)
+                    .HasForeignKey(df => df.SideServiceId),
+                j => j
+                    .HasOne(df => df.Order)
+                    .WithMany(d => d.OrderSideServices)
+                    .HasForeignKey(df => df.OrderId),
+                j =>
+                {
+                    j.HasKey(t => new { t.OrderId, t.SideServiceId });
+                }
+            );
+
+            builder.HasMany(d => d.Rooms)
+            .WithMany(f => f.Orders)
+            .UsingEntity<RoomOrder>(
+                j => j
+                    .HasOne(df => df.Room)
+                    .WithMany(f => f.RoomOrders)
+                    .HasForeignKey(df => df.RoomId),
+                j => j
+                    .HasOne(df => df.Order)
+                    .WithMany(d => d.RoomOrders)
+                    .HasForeignKey(df => df.OrderId),
+                j =>
+                {
+                    j.HasKey(t => new { t.OrderId, t.RoomId });
+                }
+            );
         }
     }
 }
