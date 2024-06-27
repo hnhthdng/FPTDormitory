@@ -8,7 +8,7 @@ namespace DormModel.Model
 {
     public class RoomOrder
     {
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public int RoomId { get; set; }
 
         public virtual Room Room { get; set; }

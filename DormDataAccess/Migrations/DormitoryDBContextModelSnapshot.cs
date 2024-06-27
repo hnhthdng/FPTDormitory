@@ -250,70 +250,10 @@ namespace DormDataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DormModel.Model.Invoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("TotalPrice")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TransactionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserFullName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("PaymentId");
-
-                    b.HasIndex("TransactionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Invoices");
-                });
-
             modelBuilder.Entity("DormModel.Model.Order", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -347,8 +287,8 @@ namespace DormDataAccess.Migrations
 
             modelBuilder.Entity("DormModel.Model.OrderSideService", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SideServiceId")
                         .HasColumnType("int");
@@ -358,24 +298,6 @@ namespace DormDataAccess.Migrations
                     b.HasIndex("SideServiceId");
 
                     b.ToTable("OrderSideServices");
-                });
-
-            modelBuilder.Entity("DormModel.Model.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("DormModel.Model.Room", b =>
@@ -430,8 +352,8 @@ namespace DormDataAccess.Migrations
 
             modelBuilder.Entity("DormModel.Model.RoomOrder", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -483,39 +405,6 @@ namespace DormDataAccess.Migrations
                             Name = "Fixing",
                             Price = 50000m
                         });
-                });
-
-            modelBuilder.Entity("DormModel.Model.Transaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("PaymentId");
-
-                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -699,37 +588,6 @@ namespace DormDataAccess.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("DormModel.Model.Invoice", b =>
-                {
-                    b.HasOne("DormModel.Model.AppUser", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("DormModel.Model.Payment", "Payment")
-                        .WithMany("Invoices")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DormModel.Model.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DormModel.Model.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Payment");
-
-                    b.Navigation("Transaction");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("DormModel.Model.Order", b =>
                 {
                     b.HasOne("DormModel.Model.AppUser", "User")
@@ -777,25 +635,6 @@ namespace DormDataAccess.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("DormModel.Model.Transaction", b =>
-                {
-                    b.HasOne("DormModel.Model.Order", "Order")
-                        .WithMany("Transactions")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DormModel.Model.Payment", "Payment")
-                        .WithMany("Transactions")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -851,8 +690,6 @@ namespace DormDataAccess.Migrations
 
             modelBuilder.Entity("DormModel.Model.AppUser", b =>
                 {
-                    b.Navigation("Invoices");
-
                     b.Navigation("Orders");
                 });
 
@@ -873,15 +710,6 @@ namespace DormDataAccess.Migrations
                     b.Navigation("OrderSideServices");
 
                     b.Navigation("RoomOrders");
-
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("DormModel.Model.Payment", b =>
-                {
-                    b.Navigation("Invoices");
-
-                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("DormModel.Model.Room", b =>

@@ -2,6 +2,7 @@
 using DormModel.DTO.Account;
 using DormModel.DTO.Dorm;
 using DormModel.DTO.Floor;
+using DormModel.DTO.Order;
 using DormModel.DTO.Room;
 using DormModel.DTO.SideService;
 using DormModel.Model;
@@ -19,6 +20,8 @@ namespace DormUtility.AutoMapper
             CreateMap<Room, RoomResponseDTO>();
             CreateMap<RoomRequestDTO, Room>();
             CreateMap<SideService, SideServiceResponseDTO>();
+            CreateMap<Order, OrderResponseDTO>();
+
 
         }
     }

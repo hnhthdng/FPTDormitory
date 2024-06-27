@@ -1,4 +1,7 @@
-﻿namespace DormModel.Model
+﻿using DormModel.Model;
+using Microsoft.EntityFrameworkCore;
+
+namespace DormModel.Model
 {
     public class Floor
     {

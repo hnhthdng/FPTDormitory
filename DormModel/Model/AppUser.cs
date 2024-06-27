@@ -15,7 +15,6 @@ namespace DormModel.Model
         public decimal Balance { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Room Room { get; set; }
     }
 }

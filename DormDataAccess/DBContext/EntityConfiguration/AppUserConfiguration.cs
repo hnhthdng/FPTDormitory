@@ -18,10 +18,6 @@ namespace DormDataAccess.DBContext.EntityConfiguration
                   .HasForeignKey(o => o.UserId);
 
 
-            // Configure one-to-many relationship with Invoices
-            builder.HasMany(e => e.Invoices)
-                  .WithOne(i => i.User)
-                  .HasForeignKey(i => i.UserId);
 
             // Configure one-to-one relationship with Room
             builder.HasOne(u => u.Room)

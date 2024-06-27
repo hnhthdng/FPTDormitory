@@ -23,12 +23,10 @@ namespace DormDataAccess.DBContext
         public DbSet<DormFloor> DormFloors { get; set; }
         public DbSet<Floor> Floors { get; set; }
         public DbSet<FloorRoom> FloorRooms { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<RoomOrder> RoomOrders { get; set; }
         public DbSet<OrderSideService> OrderSideServices { get; set; }
         public DbSet<SideService> SideServices { get; set; }
-        public DbSet<Payment> Payment { get; set; }
         public DbSet<Room> Rooms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -52,13 +50,10 @@ namespace DormDataAccess.DBContext
             modelBuilder.ApplyConfiguration(new DormFloorConfiguration());
             modelBuilder.ApplyConfiguration(new FloorConfiguration());
             modelBuilder.ApplyConfiguration(new FloorRoomConfiguration());
-            modelBuilder.ApplyConfiguration(new InvoiceConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderSideServiceConfiguration());
-            modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new SideServiceConfiguration());
-            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new RoomOrderConfiguration());
 
             // Optionally, seed data
@@ -95,6 +90,7 @@ namespace DormDataAccess.DBContext
                 new FloorRoom { FloorId = 1, RoomId = 2 },
                 new FloorRoom { FloorId = 2, RoomId = 1 }
             );
+
         }
     }
 }

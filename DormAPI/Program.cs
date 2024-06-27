@@ -91,7 +91,11 @@ builder.Services.AddScoped<RoomDAO>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<SideServiceDAO>();
 builder.Services.AddScoped<ISideServiceService, SideServiceService>();
+builder.Services.AddScoped<OrderDAO>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
+
+builder.Services.AddSingleton<IVNPayService, VNPayService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
