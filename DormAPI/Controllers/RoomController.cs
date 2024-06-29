@@ -96,6 +96,7 @@ namespace DormAPI.Controllers
                 {
                     Name = roomModel.Name,
                     MaximumNumberOfPeople = roomModel.MaximumNumberOfPeople,
+                    Price = roomModel.Price,
                 };
                 await _roomService.AddRoomToFloorAsync(floorId, room);
                 return StatusCode(200, "Add success");

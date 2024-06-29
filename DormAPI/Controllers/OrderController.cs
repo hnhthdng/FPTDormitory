@@ -2,6 +2,8 @@
 using DormDataAccess.Services;
 using DormDataAccess.Services.IService;
 using DormModel.DTO.Order;
+using DormModel.DTO.Room;
+using DormModel.DTO.SideService;
 using DormModel.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +32,28 @@ namespace DormAPI.Controllers
             var orders = await _orderService.GetAllAsync();
             var ordersDTO = _mapper.Map<List<OrderResponseDTO>>(orders);
             return Ok(ordersDTO);
+        }
+
+        [HttpGet("get-items-by-order-id")]
+        public async Task<IActionResult> GetItemsByOrderId(string orderid)
+        {
+            var orders = await _orderService.GetByIdAsync(orderid);
+            Cart cart = new Cart()
+            {
+                roomResponseDTOs = new List<RoomResponseDTO>(),
+                sideServiceResponseDTOs = new List<SideServiceResponseDTO>()
+            };
+            foreach (var room in orders.Rooms.ToList())
+            {
+                var roomDTO = _mapper.Map<RoomResponseDTO>(room);
+                cart.roomResponseDTOs.Add(roomDTO);
+            }
+            foreach (var sideService in orders.SideServices.ToList())
+            {
+                var sideServiceDTO = _mapper.Map<SideServiceResponseDTO>(sideService);
+                cart.sideServiceResponseDTOs.Add(sideServiceDTO);
+            }
+            return Ok(cart);
         }
 
         [HttpGet("get-by-id")]

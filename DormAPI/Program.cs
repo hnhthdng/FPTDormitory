@@ -93,7 +93,10 @@ builder.Services.AddScoped<SideServiceDAO>();
 builder.Services.AddScoped<ISideServiceService, SideServiceService>();
 builder.Services.AddScoped<OrderDAO>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-
+builder.Services.AddScoped<RoomOrderDAO>();
+builder.Services.AddScoped<IRoomOrderService, RoomOrderService>();
+builder.Services.AddScoped<OrderSideServiceDAO>();
+builder.Services.AddScoped<IOrderSideServiceService, OrderSideServiceService>();
 
 builder.Services.AddSingleton<IVNPayService, VNPayService>();
 

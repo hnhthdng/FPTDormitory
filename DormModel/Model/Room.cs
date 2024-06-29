@@ -12,7 +12,6 @@
         public virtual ICollection<FloorRoom> FloorRooms { get; set; }
         public virtual ICollection<AppUser> AppUsers { get; set; }
         public virtual ICollection<Floor> Floors { get; set; }
-
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<RoomOrder> RoomOrders { get; set; }
     }

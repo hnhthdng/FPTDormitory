@@ -44,7 +44,7 @@ namespace DormDataAccess.DAO
 
         public async Task<Order> GetByIdAsync(string id)
         {
-            return await _context.Orders.Where(d => d.Id.Equals(id)).SingleOrDefaultAsync();
+            return await _context.Orders.Include(o=>o.Rooms).Include(o=>o.SideServices).Where(d => d.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public async Task<List<Order>> GetByUserId(string userId)
@@ -60,5 +60,6 @@ namespace DormDataAccess.DAO
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
         }
+
     }
 }

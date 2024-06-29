@@ -89,5 +89,22 @@ namespace DormAPI.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpGet("remove-room-for-user")]
+        public async Task<IActionResult> RemoveRoomForUser()
+        {
+            var user = await _userService.GetUserInCookieAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            user.RoomId = null;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok("Remove room success");
+            }
+            return BadRequest("Remove room failed");
+        }
     }
 }

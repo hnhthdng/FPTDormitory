@@ -10,9 +10,6 @@ namespace DormModel.Model
         public string? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Address { get; set; }
-        public string? Description { get; set; }
-        public string? Picture { get; set; }
-        public decimal Balance { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
         public virtual Room Room { get; set; }
